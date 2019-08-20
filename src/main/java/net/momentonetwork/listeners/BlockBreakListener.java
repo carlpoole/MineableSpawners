@@ -16,6 +16,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.Collections;
+import java.util.List;
 
 public class BlockBreakListener implements Listener {
     // Make a class variable plugin with main class instance
@@ -31,17 +32,16 @@ public class BlockBreakListener implements Listener {
 
     @EventHandler (priority = EventPriority.MONITOR)
     public void onSpawnerMine(BlockBreakEvent e) {
-
         Player player = e.getPlayer();
         Block block = e.getBlock();
         Material material = block.getType();
 
         if (material == Material.SPAWNER && !e.isCancelled()) {
-
             CreatureSpawner spawner = (CreatureSpawner) block.getState();
 
             if(player.hasPermission("mineablespawners.break") || !config.getBoolean("require_permission.spawner_break")) {
-                if (player.getInventory().getItemInMainHand().containsEnchantment(Enchantment.SILK_TOUCH) || player.hasPermission("mineablespawners.nosilk") || !config.getBoolean("require_permission.no_silk")) {
+
+                if (checkLore(player.getInventory().getItemInMainHand()) || player.hasPermission("mineablespawners.nosilk") || !config.getBoolean("require_permission.no_silk")) {
                     // Cancel exp drop
                     e.setExpToDrop(0);
                     // Bring block straight to inv
@@ -56,14 +56,28 @@ public class BlockBreakListener implements Listener {
                         player.sendMessage(ChatColor.RED + "Please clear up some inventory space before mining a spawner!");
                         e.setCancelled(true);
                     }
-                } else {
-                    player.sendMessage(ChatColor.RED + "You must use a pickaxe with silk touch to mine a spawner!");
-                    e.setCancelled(true);
                 }
             } else {
                 player.sendMessage(ChatColor.RED + "Sorry, you do not have permission to do this!");
                 e.setCancelled(true);
             }
         }
+    }
+
+    private boolean checkLore(ItemStack handItem) {
+        if (handItem == null)
+            return false;
+
+        List<String> lore = handItem.getItemMeta().getLore();
+
+        if (lore == null || lore.isEmpty())
+            return false;
+
+        for(String loretext : lore) {
+            if (loretext.toLowerCase().contains("spawner miner"))
+                return true;
+        }
+
+        return false;
     }
 }
