@@ -1,21 +1,38 @@
 # MineableSpawners
 
-This plugin allows players to mine spawners with silk touch (or not, see description) and have them go to their inventory so that they can trade or place them. This system uses the item lore to keep track of the spawner type.
 
-**Note:** Make sure to check the configuration if you want to disable the permission checks for certain features.
+This plugin allows players to mine and drop spawners, receive them via command and more!​
 
-### Current features
-- Define if a user needs silk touch or not to break and drop spawners.
-- Change spawner type by looking at it and using /spawner (mob).
-- Give spawners by using /spawnergive (player) (mob) (amount).
-- Enable/Disable changing spawner types with spawn eggs.
 
-### Permissions
-- Break a spawner with silk touch: mineablespawners.break
-- Break a spawner without silk touch: mineablespawners.break & mineablespawners.nosilk
-- Access to /spawner (all mobs): mineablespawners.spawner
-- Access to /spawner (specific mobs only, do not give the above permission): mineablespawners.spawner.<mob name>, for example mineablespawners.spawner.chicken
-- Access to /spawnergive: mineablespawners.give
-- Ability to change spawners with spawn eggs: mineablespawners.eggchange
+### Current features:
+- Define if users can mine spawners.​
+- Change spawner types using /spawner (type).​
+- Give spawners to players using /spawnergive (player) (type) (amount).​
+- Disable spawner renaming in anvils.​
+- Define if users can change spawner types using spawn eggs.​
+- & more!​
+​  
+&nbsp;
 
-Download link: https://www.spigotmc.org/resources/mineablespawners.59921/
+##### Commands:
+- /spawnergive (player) (type) (amount)
+- /spawner (type)
+
+&nbsp;
+ 
+##### Permissions:
+- mineablespawners.give - Access to /spawnergive
+- mineablespawners.spawner - Access to /spawner
+- mineablespawners.spawner.(type) - Access to a specific type of mob in /spawner. Only applicable if require-individual-permission is set to true in the config.
+- mineablespawners.break - Permission to mine a spawner
+- mineablespawners.nosilk - Bypass the silk touch requirement when mining spawners.
+- mineablespawners.eggchange - Ability to change spawners by right clicking them with spawn eggs.
+- mineablespawners.eggchange.(type) - Access to specific types of mobs when using spawn eggs to change spawner types.
+
+&nbsp;
+
+Everything is configurable and explained in the configuration file!
+
+[Default Config](https://pastebin.com/cKmUbTtt)
+
+Download link: [https://www.spigotmc.org/resources/mineablespawners.59921/](https://www.spigotmc.org/resources/mineablespawners.59921/)
